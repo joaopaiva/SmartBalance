@@ -13,13 +13,8 @@ function initChart(labelArray, pesoArray){
   				labels: labelArray,
   				datasets: [{
   					label: 'Peso',
-<<<<<<< HEAD
-                      backgroundColor: "#3b60d0",
-                      borderColor: "#3b60d0", 
-=======
-                      fillColor: "#3b60d0",
-                      strokeColor: "#3b60d0",
->>>>>>> 5f281427453dcbda397ab9ff416331603ea5ca76
+                    backgroundColor: "#3b60d0",
+                    borderColor: "#3b60d0",
   					//data: pesoArray,
   					data: pesoArray,
   					fill: true,
