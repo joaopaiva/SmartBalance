@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Painel do Transporte - Smart Balance</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="detalhes-transporte.html">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-balance-scale"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>Smart Balance</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="detalhes-transporte.html"><i class="fas fa-tachometer-alt"></i><span>Painel do Transporte</span></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="editar-transporte.html"><i class="fas fa-edit"></i><span>Editar Transporte</span></a></li>
+                    </ul>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <div class="input-group-append"></div>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small" id="currentUserName"></span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"
+                                        role="menu"><a class="dropdown-item" role="presentation" id="btn-logoff" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Sair</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">Informações do Transporte:</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-xl-4 mb-1">
+                            <div class="card shadow border-left-primary py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary"><span>Peso inicial(Kg)</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0">
+                                                <span id="pesoInicial" class="mb-0">
+                                                    <input type="text" id="varPeso" disabled style="background-color:transparent;font-size:16px;border:0px" >
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-info fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xl-4 mb-1">
+                            <div class="card shadow border-left-primary py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary"><span>Peso Atual(Kg)</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0">
+                                                <span id="pesoAtual" class="mb-0">
+                                                    <input type="text" id="varPesoAtual" disabled style="background-color:transparent;font-size:16px;border:0px" >
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-info fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xl-4 mb-1">
+                            <div class="card shadow border-left-primary py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary"><span>Status Porta</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><span id="statusPorta" class="mb-0"><input type="text" id="varStatusPorta" disabled style="background-color:transparent;font-size:16px;border:0px" ></span></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-info fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xl-4 mb-1">
+                            <div class="card shadow border-left-success py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Status do Alarme</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><button class="btn btn-danger btn-sm" id="btnDesligaAlarme" onclick="desligaAlarme()" type="button">DESLIGAR ALARME</button></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-smile fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xl-4 mb-1">
+                            <div class="card shadow border-left-warning py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Ações Rapidas</span>
+                                                <div class="col"><button class="btn btn-danger btn-sm" style="text-transform: uppercase;" id="btnAbrirPorta" onclick="btnPorta()" type="button">...</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-crosshairs fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid w-75 h-50 text-center bg-white" id="user-stats">
+                    <div class="row">
+                        <canvas id="pesoChart"></canvas>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto"><button class="btn btn-danger btn-sm" id="btnResetPeso" onclick="resetPeso()" type="button">RESET</button></div>
+                    </div>
+
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Smart Balance 2019</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-alerts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

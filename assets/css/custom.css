@@ -1,0 +1,16 @@
+.btn.btn-primary.add-new {
+  margin: 0 0 0 10px;
+}
+
+#statusAlarme {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.text-center input {
+    text-align: center;
+}
+
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
