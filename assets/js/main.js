@@ -154,6 +154,7 @@ function ligarAlarme(){
     client.send(message);
 
     alarmeLigado = 1;
+    rootRefc.update({ statusAlarme: true });
 
     swal({
         title: "Atenção!",
@@ -171,7 +172,7 @@ function ligarAlarme(){
 
 }
 
-function enviaMsg(string = '{"truckWeight": "14","alarmStatus": "1"}', destination = 'icc/truck_report'){
+function enviaMsg(string = '{"truckWeight": "4","alarmStatus": "1"}', destination = 'icc/truck_report'){
     message = new Paho.MQTT.Message(string);
     message.destinationName = destination;
     client.send(message);
@@ -191,6 +192,8 @@ function desligaAlarme(){
     message.destinationName = "icc/truck_command";
     client.send(message);
 
+    rootRefc.update({ statusAlarme: false });
+
     swal({
         title: "Sucesso!!!:",
         text: "Alarme Desligado com sucesso!!!\n\n",
@@ -203,7 +206,6 @@ function desligaAlarme(){
 
 function btnPorta(){
     if ($('#varStatusPorta').val() == 'Fechada') {
-        var testString = {"doorCommand": "1"};
         message = new Paho.MQTT.Message('{"doorCommand": "1"}');
         document.getElementById('btnAbrirPorta').style.background = '#00FF00';
         document.getElementById('btnAbrirPorta').style.color = '#000000';
@@ -218,7 +220,6 @@ function btnPorta(){
             timer: 2500
         });
     } else {
-        var testString = {"doorCommand": "0"};
         message = new Paho.MQTT.Message('{"doorCommand": "0"}');
         document.getElementById('btnAbrirPorta').style.background = '#FF0000';
         $("#btnAbrirPorta").html("Fechar Porta");
@@ -233,8 +234,6 @@ function btnPorta(){
             timer: 2500
         });
     }
-
-    console.log(testString);
 
     message.destinationName = "icc/truck_command";
     client.send(message);
@@ -302,13 +301,14 @@ function salvarPeso(peso, timestamp, id) {
 
      var msgCount = 1; //Intervalo de mensagens para se salvar o peso
 
+     message = new Paho.MQTT.Message('{"alarmCtrl": "1"}');
 
      if (topic == "icc/truck_report") {
          i++;
 
          var payload = JSON.parse(payload) ;
          var peso = payload['truckWeight'];
-         var alarme = payload['alarmStatus'];
+         var alarmeStatus = payload['alarmStatus'];
 
          console.log(i, msgCount);
         if(i==msgCount){
@@ -324,8 +324,8 @@ function salvarPeso(peso, timestamp, id) {
          if( (pesoInicial < 0.8*peso || pesoInicial > 1.2*peso))
             ligarAlarme();
 
-         if(alarme=='1'){
-            ligarAlarme();
+         if(alarmeStatus=='1'){
+            //ligarAlarme();
             rootRefp.update({ Status_Porta: 'Aberta' });
             $("#varStatusPorta").val("Aberta");
             $("#btnDesligaAlarme").attr("disabled", false);
@@ -333,7 +333,7 @@ function salvarPeso(peso, timestamp, id) {
             $("#btnAbrirPorta").html("Fechar Porta");
             document.getElementById('btnAbrirPorta').style.color = '#000000';
 
-        }else if(alarme=='2'){
+        }else if(alarmeStatus=='2'){
             ligarAlarme();
             /* APENAS ACIONA O ALARME NO DISPOSITIVO DE HARDWARE*/
             // $("#varStatusPorta").val("Aberta");
@@ -349,6 +349,25 @@ function salvarPeso(peso, timestamp, id) {
             document.getElementById('btnAbrirPorta').style.background = '#00FF00';
             document.getElementById('btnAbrirPorta').style.color = '#000000';
             $("#btnAbrirPorta").html("Abrir Porta");
+         }
+     }
+
+     if (topic == "icc/truck_command") {
+         i++;
+
+         var payload = JSON.parse(payload) ;
+         var alarmCtrl = payload['alarmCtrl'];
+
+         if(alarmCtrl=='1'){
+            desligaAlarme();
+        }else if(alarmCtrl=='2'){
+            ligarAlarme();
+            /* APENAS ACIONA O ALARME NO DISPOSITIVO DE HARDWARE*/
+            // $("#varStatusPorta").val("Aberta");
+            // $("#btnDesligaAlarme").attr("disabled", false);
+            // document.getElementById('btnAbrirPorta').style.background = '#FF0000';
+            // $("#btnAbrirPorta").html("Fechar Porta");
+            // document.getElementById('btnAbrirPorta').style.color = '#000000';
          }
      }
 
@@ -371,7 +390,17 @@ function load() {
    rootReft.on('value', function(snapshot){$('#peso').val(snapshot.child('peso').val());});
 
 
-   //rootRefc.once('value', function(snapshot){$('#varPesoAtual').val(snapshot.child('Peso_Atual').val());});
+   rootRefc.once('value', function(snapshot){
+       var statusA = snapshot.child('statusAlarme').val();
+
+       if(statusA == true){
+           ligarAlarme();
+           $("#btnDesligaAlarme").attr("disabled", true);
+       }else if(statusA == false){
+           $("#btnDesligaAlarme").attr("disabled", false);
+       }
+   });
+
    rootRefp.once('value', function(snapshot){
        var statusP = snapshot.child('Status_Porta').val();
        $('#varStatusPorta').val(statusP);
