@@ -206,6 +206,7 @@ function desligaAlarme(){
 
 function btnPorta(){
     if ($('#varStatusPorta').val() == 'Fechada') { //Abrir porta
+        console.log('{"doorCommand": "0"}');
         message = new Paho.MQTT.Message('{"doorCommand": "0"}');
         document.getElementById('btnAbrirPorta').style.background = '#00FF00';
         document.getElementById('btnAbrirPorta').style.color = '#000000';
@@ -221,7 +222,8 @@ function btnPorta(){
         });
 
 
-    } else if($('#varStatusPorta').val() == 'Aberta') { //Fechar porta
+    }
+    if($('#varStatusPorta').val() == 'Aberta') { //Fechar porta
         console.log('{"doorCommand": "1"}');
         message = new Paho.MQTT.Message('{"doorCommand": "1"}');
         document.getElementById('btnAbrirPorta').style.background = '#FF0000';
