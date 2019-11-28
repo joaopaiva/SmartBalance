@@ -401,10 +401,10 @@ function load() {
        }
    });
 
-   rootRefp.once('value', function(snapshot){
+   /*rootRefp.once('value', function(snapshot){
        var statusP = snapshot.child('Status_Porta').val();
        $('#varStatusPorta').val(statusP);
-       var btnAbrirPorta = document.getElementById('btnAbrirPorta');
+       //var btnAbrirPorta = document.getElementById('btnAbrirPorta');
 
        console.log(btnAbrirPorta, typeof btnAbrirPorta);
 
@@ -419,7 +419,7 @@ function load() {
            $("#btnAbrirPorta").html("Abrir Porta");
        }
 
-   });
+   });*/
    return;
 }
 
