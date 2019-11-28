@@ -330,7 +330,7 @@ function salvarPeso(peso, timestamp, id) {
          if(alarmeStatus=='1'){
             //ligarAlarme();
 
-            rootRefp.update({ Status_Porta: 'Fechada' });
+            //rootRefp.update({ Status_Porta: 'Fechada' });
             $("#varStatusPorta").val("Fechada");
             $("#btnDesligaAlarme").attr("disabled", true);
             document.getElementById('btnAbrirPorta').style.background = '#00FF00';
@@ -346,7 +346,7 @@ function salvarPeso(peso, timestamp, id) {
             // document.getElementById('btnAbrirPorta').style.color = '#000000';
          }
          else{
-             rootRefp.update({ Status_Porta: 'Aberta' });
+             //rootRefp.update({ Status_Porta: 'Aberta' });
              $("#varStatusPorta").val("Aberta");
              $("#btnDesligaAlarme").attr("disabled", false);
              document.getElementById('btnAbrirPorta').style.background = '#FF0000';
