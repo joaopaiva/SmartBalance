@@ -206,11 +206,13 @@ function desligaAlarme(){
 
 function btnPorta(){
     if ($('#varStatusPorta').val() == 'Fechada') {
-        message = new Paho.MQTT.Message('{"doorCommand": "1"}');
+        message = new Paho.MQTT.Message('{"doorCommand": "0"}');
         document.getElementById('btnAbrirPorta').style.background = '#00FF00';
         document.getElementById('btnAbrirPorta').style.color = '#000000';
         $("#btnAbrirPorta").html("Abrir Porta");
         aux1 = 1;
+
+        rootRefp.update({Status_Porta: "Aberta"});
 
         swal({
             title: "Atenção!",
@@ -220,7 +222,8 @@ function btnPorta(){
             timer: 2500
         });
     } else if($('#varStatusPorta').val() == 'Aberta') {
-        message = new Paho.MQTT.Message('{"doorCommand": "0"}');
+        rootRefp.update({Status_Porta: "Fechada"});
+        message = new Paho.MQTT.Message('{"doorCommand": "1"}');
         document.getElementById('btnAbrirPorta').style.background = '#FF0000';
         $("#btnAbrirPorta").html("Fechar Porta");
         document.getElementById('btnAbrirPorta').style.color = '#000000';
