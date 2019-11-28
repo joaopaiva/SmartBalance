@@ -206,14 +206,12 @@ function desligaAlarme(){
 
 function btnPorta(){
     if ($('#varStatusPorta').val() == 'Fechada') {
-        message = new Paho.MQTT.Message('{"doorCommand": "0"}');
+        message = new Paho.MQTT.Message('{"doorCommand": "1"}');
         document.getElementById('btnAbrirPorta').style.background = '#00FF00';
         document.getElementById('btnAbrirPorta').style.color = '#000000';
         $("#btnAbrirPorta").html("Abrir Porta");
         aux1 = 1;
         $('#varStatusPorta').val('Aberta');
-        rootRefp.update({Status_Porta: "Aberta"});
-
         swal({
             title: "Atenção!",
             text: "A porta foi aberta!\n\n",
@@ -222,14 +220,12 @@ function btnPorta(){
             timer: 2500
         });
     } else if($('#varStatusPorta').val() == 'Aberta') {
-        $('#varStatusPorta').val('Fechada');
-        rootRefp.update({Status_Porta: "Fechada"});
-        message = new Paho.MQTT.Message('{"doorCommand": "1"}');
+        message = new Paho.MQTT.Message('{"doorCommand": "0"}');
         document.getElementById('btnAbrirPorta').style.background = '#FF0000';
         $("#btnAbrirPorta").html("Fechar Porta");
         document.getElementById('btnAbrirPorta').style.color = '#000000';
         aux1 = 0;
-
+        $('#varStatusPorta').val('Fechada');
         swal({
             title: "Atenção!",
             text: "A porta foi fechada!\n\n",
@@ -325,18 +321,18 @@ function salvarPeso(peso, timestamp, id) {
          $("#varPesoAtual").val(peso);
 
          //ligarAlarme();
-         //if( (pesoInicial < 0.8*peso || pesoInicial > 1.2*peso))
-         //    ligarAlarme();
+         if( (pesoInicial < 0.8*peso || pesoInicial > 1.2*peso))
+            ligarAlarme();
 
          if(alarmeStatus=='1'){
             //ligarAlarme();
-
-            //rootRefp.update({ Status_Porta: 'Fechada' });
-            $("#varStatusPorta").val("Fechada");
-            $("#btnDesligaAlarme").attr("disabled", true);
-            document.getElementById('btnAbrirPorta').style.background = '#00FF00';
+            rootRefp.update({ Status_Porta: 'Aberta' });
+            $("#varStatusPorta").val("Aberta");
+            $("#btnDesligaAlarme").attr("disabled", false);
+            document.getElementById('btnAbrirPorta').style.background = '#FF0000';
+            $("#btnAbrirPorta").html("Fechar Porta");
             document.getElementById('btnAbrirPorta').style.color = '#000000';
-            $("#btnAbrirPorta").html("Abrir Porta");
+
         }else if(alarmeStatus=='2'){
             ligarAlarme();
             /* APENAS ACIONA O ALARME NO DISPOSITIVO DE HARDWARE*/
@@ -347,12 +343,12 @@ function salvarPeso(peso, timestamp, id) {
             // document.getElementById('btnAbrirPorta').style.color = '#000000';
          }
          else{
-             //rootRefp.update({ Status_Porta: 'Aberta' });
-             $("#varStatusPorta").val("Aberta");
-             $("#btnDesligaAlarme").attr("disabled", false);
-             document.getElementById('btnAbrirPorta').style.background = '#FF0000';
-             $("#btnAbrirPorta").html("Fechar Porta");
-             document.getElementById('btnAbrirPorta').style.color = '#000000';
+            rootRefp.update({ Status_Porta: 'Fechada' });
+            $("#varStatusPorta").val("Fechada");
+            $("#btnDesligaAlarme").attr("disabled", true);
+            document.getElementById('btnAbrirPorta').style.background = '#00FF00';
+            document.getElementById('btnAbrirPorta').style.color = '#000000';
+            $("#btnAbrirPorta").html("Abrir Porta");
          }
      }
 
