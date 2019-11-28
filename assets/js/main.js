@@ -205,7 +205,6 @@ function desligaAlarme(){
 }
 
 function btnPorta(){
-    //console.log($('#varStatusPorta').val());
     if ($('#varStatusPorta').val() == "Fechada") {
         console.log({"doorCommand": "1"});
         message = new Paho.MQTT.Message('{"doorCommand": "1"}');
