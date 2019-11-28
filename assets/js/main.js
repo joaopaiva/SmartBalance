@@ -219,7 +219,7 @@ function btnPorta(){
             buttons: false,
             timer: 2500
         });
-    } else {
+    } else if($('#varStatusPorta').val() == 'Aberta') {
         message = new Paho.MQTT.Message('{"doorCommand": "0"}');
         document.getElementById('btnAbrirPorta').style.background = '#FF0000';
         $("#btnAbrirPorta").html("Fechar Porta");
